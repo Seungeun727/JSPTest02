@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.test.phonbook.vo.PhoneBookVo;
+import com.test.phonebook.dao.PhoneBookDao;
+import com.test.phonebook.dao.PhoneBookDaoImpl;
+
+
 public class PhoneBookServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,8 +28,8 @@ public class PhoneBookServlet extends HttpServlet{
 			rd.forward(req, resp);
 		} else {
 			// DAO에서 목록을 받아서 jsp로 전달
-			AddressDao dao = new AddressDaoImpl();
-			List<AddressVo> list = dao.getList();
+			PhoneBookDao dao = new PhoneBookDaoImpl();
+			List<PhoneBookVo> list = dao.getList();
 
 			// 요청에 list를 추가
 			// list 객체를 list 키로 추가
@@ -43,18 +48,18 @@ public class PhoneBookServlet extends HttpServlet{
 		String actionName = req.getParameter("a");
 		
 		if ("add".equals(actionName)) {	//	a=add
-			String firstName = req.getParameter("name");
-			String lastName = req.getParameter("hp");
-			String email = req.getParameter("tel");
+			String name = req.getParameter("name");
+			String hp = req.getParameter("hp");
+			String tel = req.getParameter("tel");
 			
 			//	VO 객체 생성
-			AddressVo vo = new AddressVo();
+			PhoneBookVo vo = new PhoneBookVo();
 			vo.setName(name);
 			vo.setHp(hp);
 			vo.setTel(tel);
 			
 			//	INSERT 처리
-			AddressDao = new AddressDaoImpl();
+			PhoneBookDao dao = new PhoneBookDaoImpl();
 			int insertedCount = dao.insert(vo);
 			
 			//	처리 후 list페이지로 리다이렉트
@@ -63,13 +68,13 @@ public class PhoneBookServlet extends HttpServlet{
 			//	a=delete면
 			Long no = Long.valueOf(req.getParameter("no"));
 			
-			AddressDao dao = new AddressDaoImpl();
+			PhoneBookDao dao = new PhoneBookDaoImpl();
 			int deletedCount = dao.delete(no);
 			
 			//	리스트 페이지로 리다이렉트
 			resp.sendRedirect(req.getContextPath() + "/el");
-		} else {
-			doGet(req, resp);
+		} else if ("reset".equals(actionName)){
+			rd.forward(req, resp);
 		}
 	}
 
