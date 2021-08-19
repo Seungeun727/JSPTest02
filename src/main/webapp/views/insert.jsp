@@ -21,5 +21,5 @@
 	
 	dao.insert(vo);
 
-	response.sendRedirect(request.getContextPath() + "/addressbook/");
+	response.sendRedirect(request.getContextPath() + "/Phonebook/");
 %>
