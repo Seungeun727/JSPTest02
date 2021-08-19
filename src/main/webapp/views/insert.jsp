@@ -1,4 +1,6 @@
-
+<%@page import="com.test.phonbook.vo.PhoneBookVo"%>
+<%@page import="com.test.phonebook.dao.PhoneBookDaoImpl"%>
+<%@page import="com.test.phonebook.dao.PhoneBookDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -9,10 +11,10 @@
 	// 파라미터 확인
 	
 	// DAO
-	AddressDao dao = new AddressDaoImpl();
+	PhoneBookDao dao = new PhoneBookDaoImpl();
 	
 	// Vo 객체
- 	AddressVo vo = new AddressVo();
+ 	PhoneBookVo vo = new PhoneBookVo();
 	vo.setName(name);
 	vo.setHp(hp);
 	vo.setTel(tel);
